@@ -1,0 +1,56 @@
+iframe {
+  display: none;
+}
+
+@media only screen and (max-width: 450px) {
+  .panel {
+    margin-left: 0;
+    margin-top: 0;
+  }
+}
+
+@media only screen and (min-width: 450px) {
+  .panel {
+    margin-inline: auto;
+    margin-top: 50px;
+  }
+}
+
+.panel {
+  width: 40vw;
+
+  min-width: 417px;
+}
+
+.remove-icon {
+  position: absolute;
+  right: 1em;
+}
+
+.panel-block {
+  position: relative;
+  height: 45px;
+}
+
+.todo-input {
+  padding: 0 20px 0 0;
+  border: none;
+  background-color: #fff0;
+  width: 100%;
+  font-size: medium;
+  height: 23.09px;
+}
+
+.todo-input:focus {
+  outline: none;
+  border-bottom: 1px solid #5191bbe8;
+}
+
+.tabs {
+  margin-left: 12px;
+}
+
+.fa-check-double:hover {
+  cursor: pointer;
+  scale: 1.15;
+}

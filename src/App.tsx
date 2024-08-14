@@ -1,21 +1,21 @@
 import React from 'react';
-import './App.scss';
-
-interface Props {
-  onClick: () => void;
-  children: React.ReactNode;
-}
-
-export const Provider: React.FC<Props> = React.memo(({ onClick, children }) => (
-  <button type="button" onClick={onClick}>
-    {children}
-  </button>
-));
+import '@fortawesome/fontawesome-free/css/all.css';
+import 'bulma';
+import { NavBar } from './components/NavBar';
+import { TodoItem } from './components/TodoItem';
+import { TodoInput } from './components/TodoInput';
+import { TodosProvider } from './components/TodosContext';
 
 export const App: React.FC = () => {
   return (
-    <div className="starter">
-      <Provider onClick={() => ({})}>TodoList</Provider>
+    <div className="panel is-primary">
+      <TodosProvider>
+        <TodoInput />
+
+        <NavBar />
+
+        <TodoItem />
+      </TodosProvider>
     </div>
   );
 };
