@@ -1,3 +1,7 @@
+# Question for mentor
+Can I use this project for portfolio too or this project not so good???
+
+
 # Todo app
 
 Simple but useful application for your tasks. Written on react using the framework css bulma for design.
