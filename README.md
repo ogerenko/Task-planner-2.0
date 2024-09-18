@@ -1,8 +1,8 @@
-# Todo app
+# Task planner
 
 Simple but useful application for your tasks. Written on react using the framework css bulma for design.
 
-  - [DEMO LINK](https://ogerenko.github.io/Todo-app/)
+  - [DEMO LINK](https://ogerenko.github.io/Task-planner/)
 
 
 ## Features
@@ -25,10 +25,10 @@ To run this project locally, you will need:
 ## Installation
 
   1. Clone the repository:
-  #### `https://github.com/ogerenko/Todo-app.git`
+  #### `https://github.com/ogerenko/Task-planner.git`
 
   2. Navigate to the project directory:
-  #### `cd Todo-app`
+  #### `cd Task-planner`
 
   3. Install the dependencies:
   #### `npm install`
