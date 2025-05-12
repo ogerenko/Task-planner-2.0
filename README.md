@@ -1,4 +1,4 @@
-# Task planner
+# Task planner 2.0
 
 Task Planner 2.0 is a simple yet powerful task management app. In this new version, tasks can be organized into separate projects — making it easier to manage your workflow across different areas.
 
@@ -24,7 +24,7 @@ Task Planner 2.0 is a simple yet powerful task management app. In this new versi
   + React
   
   + TypeScript
-  
+
   + Bulma CSS
 
   + GitHub Pages
@@ -32,10 +32,10 @@ Task Planner 2.0 is a simple yet powerful task management app. In this new versi
 📦 Getting Started
 
   1. Clone the repository:
-  #### `https://github.com/ogerenko/Task-planner.git`
+  #### `https://github.com/ogerenko/Task-planner-2.0.git`
 
   2. Navigate to the project directory:
-  #### `cd Task-planner`
+  #### `cd Task-planner-2.0`
 
   3. Install the dependencies:
   #### `npm install`
