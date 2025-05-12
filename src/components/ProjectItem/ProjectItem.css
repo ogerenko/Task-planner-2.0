@@ -3,6 +3,9 @@
   color: #48c78e;
 }
 
+.projects-list {
+  margin-bottom: 2.5rem;
+}
 .projects-list li {
   transition: color 300ms ease-in-out;
 }
