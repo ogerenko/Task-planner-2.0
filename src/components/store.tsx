@@ -30,6 +30,7 @@ export function useLocalStorage<T>(
 
 export type Todos = {
   id: number;
+  projId: number;
   title: string;
   completed: boolean;
 };
@@ -49,4 +50,10 @@ export const filterTodos = (t: Todos[], filter: string) => {
     default:
       return t;
   }
+};
+
+export type Projects = {
+  id: number;
+  title: string;
+  active: boolean;
 };

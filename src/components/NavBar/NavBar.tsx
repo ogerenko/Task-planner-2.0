@@ -1,7 +1,9 @@
+import './NavBar.css';
+
 import React, { useContext, useState } from 'react';
 import classNames from 'classnames';
-import { TodosContext } from './TodosContext';
-import { Status } from './store';
+import { TodosContext } from '../TodosContext';
+import { Status } from '../store';
 
 export const NavBar: React.FC = () => {
   const { todos, setTodos, incompleteCount, setFilter } =

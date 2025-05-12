@@ -1,0 +1,9 @@
+.tabs {
+  border: 1px solid #00d1b2 !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  margin: 0 !important;
+}
+.tabs li {
+  margin-left: 16px;
+}

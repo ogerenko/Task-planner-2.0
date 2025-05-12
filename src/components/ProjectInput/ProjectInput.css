@@ -1,0 +1,24 @@
+.panel-heading.panel-heading__app-name {
+  border-radius: 0;
+}
+.panel-heading.panel-heading__app-name sub {
+  color: #efe17a;
+  font-weight: 500;
+}
+
+.project-input:hover,
+.project-input:target,
+.project-input:active,
+.project-input:focus,
+.project-input {
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+.project-input__container {
+  background-color: #00d1b233;
+}

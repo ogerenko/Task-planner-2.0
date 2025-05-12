@@ -1,15 +1,19 @@
+import './TodoItem.css';
+
 import classNames from 'classnames';
 import React, { useContext, useState } from 'react';
-import { TodosContext } from './TodosContext';
-import { filterTodos } from './store';
+import { TodosContext } from '../TodosContext';
+import { filterTodos, Todos } from '../store';
 
 export const TodoItem: React.FC = () => {
-  const { todos, setTodos, filter } = useContext(TodosContext);
-  const { incompleteCount } = useContext(TodosContext);
+  const { todos, setTodos, filter, activeProjectId } = useContext(TodosContext);
 
-  const [hoveredTodo, setHoveredTodo] = useState<number | null>(null);
   const [editingTodoId, setEditingTodoId] = useState<number | null>(null);
   const [newTodoTitle, setNewTodoTitle] = useState('');
+
+  const filterCurrentTodos = (allTodos: Todos[]) => {
+    return allTodos.filter(at => at.projId === activeProjectId);
+  };
 
   const handleDoubleClick = (todoId: number, todoTitle: string) => {
     setEditingTodoId(todoId);
@@ -70,24 +74,16 @@ export const TodoItem: React.FC = () => {
     setTodos(updatedTodos);
   };
 
-  const handleClearCompleted = () => {
-    const justIncomplete = todos.filter(todo => !todo.completed);
-
-    setTodos(justIncomplete);
-  };
-
   return (
     <>
-      <ul>
-        {filterTodos(todos, filter).map(todo => (
+      <ul className="todo-item-list">
+        {filterTodos(filterCurrentTodos(todos), filter).map(todo => (
           <li
             key={todo.id}
             className={classNames('panel-block for-test', {
-              'has-background-success-light': todo.completed,
+              'has-background-success-light completed-todo': todo.completed,
               editing: editingTodoId === todo.id,
             })}
-            onMouseEnter={() => setHoveredTodo(todo.id)}
-            onMouseLeave={() => setHoveredTodo(null)}
           >
             <a
               className={classNames('panel-icon', {
@@ -120,28 +116,17 @@ export const TodoItem: React.FC = () => {
                 >
                   {todo.title}
                 </span>
-                {hoveredTodo === todo.id && (
-                  <a className="remove-icon is-small is-right">
-                    <i
-                      className="fas fa-remove has-text-danger"
-                      onClick={() => handleRemoveTodo(todo.id)}
-                    ></i>
-                  </a>
-                )}
+                <a className="remove-icon is-small is-right">
+                  <i
+                    className="fas fa-remove has-text-danger"
+                    onClick={() => handleRemoveTodo(todo.id)}
+                  ></i>
+                </a>
               </>
             )}
           </li>
         ))}
       </ul>
-
-      {todos.length - incompleteCount > 0 && (
-        <button
-          className="button is-fullwidth is-primary is-light"
-          onClick={handleClearCompleted}
-        >
-          Clear completed
-        </button>
-      )}
     </>
   );
 };

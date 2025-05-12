@@ -1,0 +1,24 @@
+.todo-item-list {
+  border: 1px solid #00d1b2;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+li {
+  height: fit-content !important;
+  min-height: fit-content !important;
+  padding-right: 30px !important;
+}
+
+li.completed-todo {
+  text-decoration: line-through;
+  text-decoration-color: #48c78e;
+}
+
+.todo-item-list .remove-icon {
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+.todo-item-list .panel-block:hover .remove-icon {
+  opacity: 1;
+}

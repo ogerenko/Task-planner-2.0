@@ -1,28 +1,35 @@
 # Task planner
 
-Simple but useful application for your tasks. Written on react using the framework css bulma for design.
+Task Planner 2.0 is a simple yet powerful task management app. In this new version, tasks can be organized into separate projects — making it easier to manage your workflow across different areas.
 
-  - [DEMO LINK](https://ogerenko.github.io/Task-planner/)
+  - [DEMO LINK](https://ogerenko.github.io/Task-planner-2.0/)
 
+🚀 What's New in 2.0
+  + Project-based task grouping — organize your tasks by project for better structure.
 
-## Features
-  + Adaptive design for different types of devices (phone, tablet, desktop)
-  + Using local storage to save tasks
-  + Filtering completed and active tasks
+  + Improved control — manage your to-dos more effectively based on different work or personal areas.
 
-## Technologies
+  + Cleaner navigation and enhanced UX.
+
+✅ Features
+  + Responsive design (mobile, tablet, desktop)
+
+  + Tasks saved in local storage
+
+  + Filter by active and completed tasks
+
+  + Assign tasks to specific projects
+
+🛠 Technologies Used
   + React
+  
   + TypeScript
-  + Bulma
+  
+  + Bulma CSS
+
   + GitHub Pages
 
-## Requirements
-
-To run this project locally, you will need:
-  + Node.js v14 or higher
-  + npm or yarn
-
-## Installation
+📦 Getting Started
 
   1. Clone the repository:
   #### `https://github.com/ogerenko/Task-planner.git`
@@ -36,7 +43,7 @@ To run this project locally, you will need:
   4. Start the development server:
   #### `npm start`
 
-## Author
+👨‍💻 Author
 
   Developed by Ruslan Oherenko. You can reach me via:
   [Linkedin](www.linkedin.com/in/ruslan-oherenko-3295b7303)

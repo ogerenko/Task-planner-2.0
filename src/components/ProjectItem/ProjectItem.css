@@ -1,0 +1,15 @@
+.project-active {
+  font-weight: 700;
+  color: #48c78e;
+}
+
+.projects-list li {
+  transition: color 300ms ease-in-out;
+}
+.projects-list li:not(.project-active):hover {
+  color: #1b6342;
+}
+.projects-list li:hover {
+  background-color: #effaf5 !important;
+  cursor: pointer;
+}
