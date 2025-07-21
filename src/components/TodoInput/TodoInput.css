@@ -31,3 +31,10 @@
 .panel-heading:hover .remove-icon {
   opacity: 1;
 }
+
+textarea.auto-resize {
+  overflow: hidden;
+  resize: none;
+  min-height: 1.5em;
+  line-height: 1.5;
+}

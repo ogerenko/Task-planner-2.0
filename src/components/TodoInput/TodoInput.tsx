@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { TodosContext } from '../TodosContext';
 import './TodoInput.css';
 
@@ -13,6 +13,21 @@ export const TodoInput: React.FC = () => {
   } = useContext(TodosContext);
 
   const [todoTitle, setTodoTitle] = useState('');
+
+  // ===================
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const textarea = textareaRef.current;
+
+    if (textarea) {
+      textarea.style.height = '1.5em'; // сброс
+      textarea.style.height = `${textarea.scrollHeight}px`; // новая высота
+    }
+  }, [todoTitle]);
+
+  // ===================
 
   const biggestId = () => {
     if (todos.length === 0) {
@@ -33,7 +48,7 @@ export const TodoInput: React.FC = () => {
       {
         id: biggestId(),
         projId: activeProjectId,
-        title: todoTitle,
+        title: todoTitle.trim(),
         completed: false,
       },
       ...todos,
@@ -66,12 +81,21 @@ export const TodoInput: React.FC = () => {
     setProjects(finalProjects);
   };
 
-  const handleSubmit = (event: React.FocusEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  // const handleSubmit = (event: React.FocusEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
 
+  //   AddNewTodo();
+
+  //   setTodoTitle('');
+  // };
+  const submitTodo = () => {
     AddNewTodo();
-
     setTodoTitle('');
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitTodo();
   };
 
   return (
@@ -92,12 +116,19 @@ export const TodoInput: React.FC = () => {
       <div className="task-input__container">
         <p className="control has-icons-left">
           <form onSubmit={handleSubmit}>
-            <input
+            <textarea
+              ref={textareaRef}
               value={todoTitle}
-              className="input task-input is-primary"
-              type="text"
+              className="input task-input is-primary textarea auto-resize"
               placeholder="What needs to be done?"
               onChange={event => setTodoTitle(event.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  submitTodo();
+                }
+              }}
+              rows={1}
             />
           </form>
           <a className="icon is-left has-text-warning">

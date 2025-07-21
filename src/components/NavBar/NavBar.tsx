@@ -6,7 +6,7 @@ import { TodosContext } from '../TodosContext';
 import { Status } from '../store';
 
 export const NavBar: React.FC = () => {
-  const { todos, setTodos, incompleteCount, setFilter } =
+  const { todos, setTodos, incompleteCount, setFilter, activeProjectId } =
     useContext(TodosContext);
 
   const [navClicked, setNavClicked] = useState({
@@ -15,15 +15,21 @@ export const NavBar: React.FC = () => {
     compleated: false,
   });
 
-  const isAllComplited = todos.every(todo => todo.completed);
+  const isAllComplited = todos
+    .filter(t => t.projId === activeProjectId)
+    .every(projTodo => projTodo.completed);
 
   const handleAllComplited = () => {
     const allComplited = todos.map(todo => {
-      if (isAllComplited) {
+      if (isAllComplited && todo.projId === activeProjectId) {
         return { ...todo, completed: !todo.completed };
       }
 
-      return { ...todo, completed: true };
+      if (todo.projId === activeProjectId) {
+        return { ...todo, completed: true };
+      }
+
+      return { ...todo };
     });
 
     setTodos(allComplited);

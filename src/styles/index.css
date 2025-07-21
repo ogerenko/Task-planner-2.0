@@ -43,9 +43,31 @@ iframe {
   height: 23.09px;
 }
 
-.todo-input:focus {
-  outline: none;
+/* .todo-input:focus {
+  outline: none !important;
+  border: none !important;
+  
   border-bottom: 1px solid #5191bbe8;
+} */
+.todo-input:hover,
+.todo-input:target,
+.todo-input:active,
+.todo-input:focus,
+.todo-input {
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  border-top-left-radius: 5px !important ;
+  border-top-right-radius: 5px !important ;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background-color: hsla(204, 44%, 53%, 0.07) !important;
+
+  border-bottom: 1px solid #5191bbe8 !important;
+
+}
+textarea.todo-input {
+  padding: 0 !important;
 }
 
 .tabs {

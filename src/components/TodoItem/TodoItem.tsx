@@ -1,7 +1,7 @@
 import './TodoItem.css';
 
 import classNames from 'classnames';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { TodosContext } from '../TodosContext';
 import { filterTodos, Todos } from '../store';
 
@@ -20,7 +20,10 @@ export const TodoItem: React.FC = () => {
     setNewTodoTitle(todoTitle);
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setNewTodoTitle(event.target.value);
+  // };
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTodoTitle(event.target.value);
   };
 
@@ -39,7 +42,7 @@ export const TodoItem: React.FC = () => {
     }
 
     const updatedTodos = todos.map(todo =>
-      todo.id === todoId ? { ...todo, title: newTodoTitle } : todo,
+      todo.id === todoId ? { ...todo, title: newTodoTitle.trim() } : todo,
     );
 
     setTodos(updatedTodos);
@@ -51,16 +54,16 @@ export const TodoItem: React.FC = () => {
     setNewTodoTitle('');
   };
 
-  const handleKeyUp = (
-    event: React.KeyboardEvent<HTMLInputElement>,
-    todoId: number,
-  ) => {
-    if (event.key === 'Enter') {
-      handleSaveChanges(todoId);
-    } else if (event.key === 'Escape') {
-      handleCancelEditing();
-    }
-  };
+  // const handleKeyUp = (
+  //   event: React.KeyboardEvent<HTMLTextAreaElement>,
+  //   todoId: number,
+  // ) => {
+  //   if (event.key === 'Enter') {
+  //     handleSaveChanges(todoId);
+  //   } else if (event.key === 'Escape') {
+  //     handleCancelEditing();
+  //   }
+  // };
 
   const handleComplitedTodo = (todoId: number) => {
     const updatedTodos = todos.map(todo => {
@@ -74,13 +77,24 @@ export const TodoItem: React.FC = () => {
     setTodos(updatedTodos);
   };
 
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    if (editingTodoId !== null && textareaRef.current) {
+      const textarea = textareaRef.current;
+
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+  }, [editingTodoId]);
+
   return (
     <>
       <ul className="todo-item-list">
         {filterTodos(filterCurrentTodos(todos), filter).map(todo => (
           <li
             key={todo.id}
-            className={classNames('panel-block for-test', {
+            className={classNames('panel-block', {
               'has-background-success-light completed-todo': todo.completed,
               editing: editingTodoId === todo.id,
             })}
@@ -100,22 +114,38 @@ export const TodoItem: React.FC = () => {
             </a>
 
             {editingTodoId === todo.id ? (
-              <input
-                className="input1 todo-input"
-                type="text"
+              <textarea
+                ref={textareaRef}
+                className="input1 textarea todo-input auto-resize"
                 value={newTodoTitle}
                 onChange={handleInputChange}
-                onKeyUp={event => handleKeyUp(event, todo.id)}
+                onInput={e => {
+                  const textarea = e.currentTarget;
+
+                  textarea.style.height = 'auto';
+                  textarea.style.height = textarea.scrollHeight + 'px';
+                }}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSaveChanges(todo.id);
+                  } else if (e.key === 'Escape') {
+                    handleCancelEditing();
+                  }
+                }}
                 autoFocus
                 onBlur={() => handleSaveChanges(todo.id)}
+                rows={1}
               />
             ) : (
               <>
-                <span
+                <div
+                  className="todo-title"
                   onDoubleClick={() => handleDoubleClick(todo.id, todo.title)}
                 >
                   {todo.title}
-                </span>
+                </div>
+
                 <a className="remove-icon is-small is-right">
                   <i
                     className="fas fa-remove has-text-danger"

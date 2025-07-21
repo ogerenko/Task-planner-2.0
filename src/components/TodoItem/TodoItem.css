@@ -22,3 +22,26 @@ li.completed-todo {
 .todo-item-list .panel-block:hover .remove-icon {
   opacity: 1;
 }
+
+.todo-title {
+  white-space: pre-line;
+  width: 100%;
+  cursor: url('/public/icons/pen-clip-solid2.svg'), pointer;
+  transition-duration: 300ms;
+
+}
+
+.todo-title:hover {
+  background-color: hsla(171, 100%, 41%, 0.03);
+}
+
+textarea.auto-resize {
+  overflow: hidden;
+  resize: none;
+  min-height: 1.5em;
+  line-height: 1.5;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
