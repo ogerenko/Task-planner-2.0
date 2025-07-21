@@ -139,11 +139,37 @@ export const TodoItem: React.FC = () => {
               />
             ) : (
               <>
-                <div
+                {/* <div
                   className="todo-title"
                   onDoubleClick={() => handleDoubleClick(todo.id, todo.title)}
                 >
                   {todo.title}
+                </div> */}
+
+                <div
+                  className="todo-title"
+                  onDoubleClick={() => handleDoubleClick(todo.id, todo.title)}
+                >
+                  {todo.title.split(/(https?:\/\/[^\s]+)/g).map((part, i) => {
+                    if (/https?:\/\/[^\s]+/.test(part)) {
+                      return (
+                        <a
+                          key={i}
+                          href={part}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            color: '#1a0dab',
+                            textDecoration: 'underline',
+                          }}
+                        >
+                          {part}
+                        </a>
+                      );
+                    }
+
+                    return <span key={i}>{part}</span>;
+                  })}
                 </div>
 
                 <a className="remove-icon is-small is-right">
