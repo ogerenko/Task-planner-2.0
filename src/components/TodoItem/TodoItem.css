@@ -28,7 +28,6 @@ li.completed-todo {
   width: 100%;
   cursor: url('/public/icons/pen-clip-solid2.svg'), pointer;
   transition-duration: 300ms;
-
 }
 
 .todo-title:hover {
@@ -47,5 +46,3 @@ textarea.auto-resize {
 .priority {
   background-color: #fdd1d1;
 }
-
-

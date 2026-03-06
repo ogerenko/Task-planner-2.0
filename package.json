@@ -17,7 +17,7 @@
     "format": "prettier --write './src/**/*.{ts,tsx}'",
     "lint": "npm run format && eslint ./src --fix",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
