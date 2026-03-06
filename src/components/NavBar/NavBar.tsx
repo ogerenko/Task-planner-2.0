@@ -6,55 +6,53 @@ import { TodosContext } from '../TodosContext';
 import { Status } from '../store';
 
 export const NavBar: React.FC = () => {
-  const { todos, setTodos, incompleteCount, setFilter, activeProjectId } =
-    useContext(TodosContext);
+  const {
+    todos,
+    setTodos,
+    incompleteCount,
+    setFilter,
+    sortTodosAlphabetically,
+  } = useContext(TodosContext);
 
   const [navClicked, setNavClicked] = useState({
     all: true,
-    active: false,
-    compleated: false,
+    priority: false,
+    sorted: false,
   });
-
-  const isAllComplited = todos
-    .filter(t => t.projId === activeProjectId)
-    .every(projTodo => projTodo.completed);
-
-  const handleAllComplited = () => {
-    const allComplited = todos.map(todo => {
-      if (isAllComplited && todo.projId === activeProjectId) {
-        return { ...todo, completed: !todo.completed };
-      }
-
-      if (todo.projId === activeProjectId) {
-        return { ...todo, completed: true };
-      }
-
-      return { ...todo };
-    });
-
-    setTodos(allComplited);
-  };
 
   const handleVisible = (status: Status) => {
     switch (status) {
-      case Status.Active:
-        setFilter(Status.Active);
-        setNavClicked({ all: false, active: true, compleated: false });
-        break;
-
-      case Status.Completed:
-        setFilter(Status.Completed);
-        setNavClicked({ all: false, active: false, compleated: true });
-        break;
-
       case Status.All:
         setFilter(Status.All);
-        setNavClicked({ all: true, active: false, compleated: false });
+        setNavClicked({
+          all: true,
+          priority: false,
+          sorted: false,
+        });
+        break;
+
+      case Status.Priority:
+        setFilter(Status.Priority);
+        setNavClicked({
+          all: false,
+          priority: true,
+          sorted: false,
+        });
         break;
 
       default:
         setTodos(todos);
     }
+  };
+
+  const handleSort = () => {
+    sortTodosAlphabetically();
+
+    setNavClicked({
+      all: false,
+      priority: false,
+      sorted: true,
+    });
   };
 
   return (
@@ -64,16 +62,10 @@ export const NavBar: React.FC = () => {
           <ul>
             <li>
               <span className="icon is-small">
-                <i
-                  className={classNames('fas fa-check-double', {
-                    'has-text-success': isAllComplited,
-                  })}
-                  onClick={handleAllComplited}
-                ></i>
+                <i className="fas fa-check-double"></i>
               </span>
               <strong className="has-text-success1">{`${incompleteCount} left`}</strong>
             </li>
-
             <li>
               <a onClick={() => handleVisible(Status.All)}>
                 <span className="icon is-small">
@@ -94,39 +86,40 @@ export const NavBar: React.FC = () => {
             </li>
 
             <li>
-              <a onClick={() => handleVisible(Status.Active)}>
+              <a onClick={() => handleVisible(Status.Priority)}>
                 <span className="icon is-small">
                   <i
                     className={classNames('fas fa-puzzle-piece', {
-                      'has-text-success': navClicked.active,
+                      'has-text-success': navClicked.priority,
                     })}
                   ></i>
                 </span>
                 <span
                   className={classNames({
-                    'has-text-success': navClicked.active,
+                    'has-text-success': navClicked.priority,
                   })}
                 >
-                  Active
+                  Priority
                 </span>
               </a>
             </li>
 
-            <li className="is-active1">
-              <a onClick={() => handleVisible(Status.Completed)}>
+            <li>
+              <a onClick={handleSort}>
                 <span className="icon is-small">
                   <i
-                    className={classNames('fas fa-thumbs-up', {
-                      'has-text-success': navClicked.compleated,
+                    className={classNames('fa-solid fa-up-down', {
+                      'has-text-success': navClicked.sorted,
                     })}
                   ></i>
                 </span>
+
                 <span
                   className={classNames({
-                    'has-text-success': navClicked.compleated,
+                    'has-text-success': navClicked.sorted,
                   })}
                 >
-                  Completed
+                  Sort
                 </span>
               </a>
             </li>

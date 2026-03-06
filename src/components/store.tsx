@@ -33,20 +33,20 @@ export type Todos = {
   projId: number;
   title: string;
   completed: boolean;
+  priority: boolean;
 };
 
 export enum Status {
   All = 'all',
-  Active = 'active',
-  Completed = 'completed',
+  Priority = 'priority',
 }
 
 export const filterTodos = (t: Todos[], filter: string) => {
   switch (filter) {
-    case Status.Active:
-      return t.filter(todo => !todo.completed);
-    case Status.Completed:
-      return t.filter(todo => todo.completed);
+    case Status.Priority:
+      return t.filter(todo => todo.priority);
+
+    case Status.All:
     default:
       return t;
   }

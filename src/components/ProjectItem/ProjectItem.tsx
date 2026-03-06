@@ -68,52 +68,54 @@ export const ProjectItem: React.FC = () => {
   return (
     <>
       <ul className="projects-list">
-        {projects.map(project => (
-          <li
-            key={project.id}
-            className={classNames('panel-block for-test', {
-              'has-background-success-light project-active': project.active,
-              editing: editingProjectId === project.id,
-            })}
-            onClick={() => handleActiveProject(project.id)}
-          >
-            <a
-              className={classNames('panel-icon', {
-                'has-text-success': project.active,
+        {[...projects]
+          .sort((a, b) => a.title.localeCompare(b.title))
+          .map(project => (
+            <li
+              key={project.id}
+              className={classNames('panel-block for-test', {
+                'has-background-success-light project-active': project.active,
+                editing: editingProjectId === project.id,
               })}
+              onClick={() => handleActiveProject(project.id)}
             >
-              <i
-                className={classNames('fa-regular', {
-                  'fa-folder-open': project.active,
-                  'fa-folder': !project.active,
+              <a
+                className={classNames('panel-icon', {
+                  'has-text-success': project.active,
                 })}
-                onClick={() => handleActiveProject(project.id)}
-              ></i>
-            </a>
+              >
+                <i
+                  className={classNames('fa-regular', {
+                    'fa-folder-open': project.active,
+                    'fa-folder': !project.active,
+                  })}
+                  onClick={() => handleActiveProject(project.id)}
+                ></i>
+              </a>
 
-            {editingProjectId === project.id ? (
-              <input
-                className="input1 todo-input"
-                type="text"
-                value={newProjectTitle}
-                onChange={handleInputChange}
-                onKeyUp={event => handleKeyUp(event, project.id)}
-                autoFocus
-                onBlur={() => handleSaveChanges(project.id)}
-              />
-            ) : (
-              <>
-                <span
-                  onDoubleClick={() =>
-                    handleDoubleClick(project.id, project.title)
-                  }
-                >
-                  {project.title}
-                </span>
-              </>
-            )}
-          </li>
-        ))}
+              {editingProjectId === project.id ? (
+                <input
+                  className="input1 todo-input"
+                  type="text"
+                  value={newProjectTitle}
+                  onChange={handleInputChange}
+                  onKeyUp={event => handleKeyUp(event, project.id)}
+                  autoFocus
+                  onBlur={() => handleSaveChanges(project.id)}
+                />
+              ) : (
+                <>
+                  <span
+                    onDoubleClick={() =>
+                      handleDoubleClick(project.id, project.title)
+                    }
+                  >
+                    {project.title}
+                  </span>
+                </>
+              )}
+            </li>
+          ))}
       </ul>
     </>
   );

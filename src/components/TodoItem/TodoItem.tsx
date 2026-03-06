@@ -20,9 +20,6 @@ export const TodoItem: React.FC = () => {
     setNewTodoTitle(todoTitle);
   };
 
-  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setNewTodoTitle(event.target.value);
-  // };
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewTodoTitle(event.target.value);
   };
@@ -54,27 +51,43 @@ export const TodoItem: React.FC = () => {
     setNewTodoTitle('');
   };
 
-  // const handleKeyUp = (
-  //   event: React.KeyboardEvent<HTMLTextAreaElement>,
-  //   todoId: number,
-  // ) => {
-  //   if (event.key === 'Enter') {
-  //     handleSaveChanges(todoId);
-  //   } else if (event.key === 'Escape') {
-  //     handleCancelEditing();
-  //   }
-  // };
-
   const handleComplitedTodo = (todoId: number) => {
     const updatedTodos = todos.map(todo => {
       if (todo.id === todoId) {
-        return { ...todo, completed: !todo.completed };
+        const newCompleted = !todo.completed;
+
+        return {
+          ...todo,
+          completed: newCompleted,
+          priority: newCompleted ? false : todo.priority,
+        };
       }
 
       return todo;
     });
 
     setTodos(updatedTodos);
+  };
+
+  const handlePriorityTodo = (todoId: number) => {
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === todoId) {
+        return { ...todo, priority: !todo.priority };
+      }
+
+      return todo;
+    });
+
+    setTodos(updatedTodos);
+  };
+
+  const handleRightClick = (
+    event: React.MouseEvent<HTMLLIElement>,
+    todoId: number,
+  ) => {
+    event.preventDefault();
+
+    handlePriorityTodo(todoId);
   };
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -94,9 +107,11 @@ export const TodoItem: React.FC = () => {
         {filterTodos(filterCurrentTodos(todos), filter).map(todo => (
           <li
             key={todo.id}
+            onContextMenu={e => handleRightClick(e, todo.id)}
             className={classNames('panel-block', {
               'has-background-success-light completed-todo': todo.completed,
               editing: editingTodoId === todo.id,
+              priority: todo.priority,
             })}
           >
             <a
@@ -139,13 +154,6 @@ export const TodoItem: React.FC = () => {
               />
             ) : (
               <>
-                {/* <div
-                  className="todo-title"
-                  onDoubleClick={() => handleDoubleClick(todo.id, todo.title)}
-                >
-                  {todo.title}
-                </div> */}
-
                 <div
                   className="todo-title"
                   onDoubleClick={() => handleDoubleClick(todo.id, todo.title)}

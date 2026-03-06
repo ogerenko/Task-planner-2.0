@@ -11,6 +11,7 @@ type PropsContext = {
   filter: Status;
   setFilter: (filter: Status) => void;
   incompleteCount: number;
+  sortTodosAlphabetically: () => void;
 };
 
 export const TodosContext = React.createContext<PropsContext>({
@@ -23,6 +24,7 @@ export const TodosContext = React.createContext<PropsContext>({
   filter: Status.All,
   setFilter: () => {},
   incompleteCount: 0,
+  sortTodosAlphabetically: () => {},
 });
 
 type Props = {
@@ -46,6 +48,18 @@ export const TodosProvider: React.FC<Props> = ({ children }) => {
     incompleteCount = todos.filter(todo => !todo.completed).length;
   }, [todos]);
 
+  const sortTodosAlphabetically = () => {
+    const sortedTodos = [...todos].sort((a, b) => {
+      if (a.projId !== activeProjectId || b.projId !== activeProjectId) {
+        return 0;
+      }
+
+      return a.title.localeCompare(b.title);
+    });
+
+    setTodos(sortedTodos);
+  };
+
   const valueTodos = useMemo(
     () => ({
       setActiveProjectId,
@@ -57,6 +71,7 @@ export const TodosProvider: React.FC<Props> = ({ children }) => {
       incompleteCount,
       filter,
       setFilter,
+      sortTodosAlphabetically,
     }),
     [todos, incompleteCount, filter, projects, activeProjectId],
   );
